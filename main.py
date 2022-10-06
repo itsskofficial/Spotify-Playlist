@@ -28,8 +28,17 @@ sp = spotipy.Spotify(
 
 user_id = sp.current_user()["id"]
 year=date.split('-')[0]
+song_uris=[]
 
 for song in songs_names:
     result=sp.search(q=f"track:{song} year:{year}",type="track")
-    print(result)
-    
+    try:
+        uri = result["tracks"]["items"][0]["uri"]
+        song_uris.append(uri)
+    except IndexError:
+        print(f"{song} doesn't exist in Spotify. Skipped.")
+
+#create spotify playlist
+
+playlist=sp.user_playlist_create(user=SPOTIFY_ID,name=f"{date} Billboard 100",public=False,description="A fun Python project",collaborative=False)
+print(playlist)
