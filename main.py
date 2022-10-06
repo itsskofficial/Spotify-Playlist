@@ -40,5 +40,9 @@ for song in songs_names:
 
 #create spotify playlist
 
-playlist=sp.user_playlist_create(user=SPOTIFY_ID,name=f"{date} Billboard 100",public=False,description="A fun Python project",collaborative=False)
+playlist=sp.user_playlist_create(user=user_id,name=f"{date} Billboard 100",public=False,description="A fun Python project",collaborative=False)
 print(playlist)
+
+#adding scraped songs to the playlist
+
+sp.playlist_add_items(playlist_id=playlist["id"],items=song_uris)
